@@ -18,10 +18,26 @@ function testSpeech() {
 
   recognition.start();
 
+  var sitesList = ['twitter', 'reddit', 'facebook', 'youtube'];
+  var sitesURL = ['https://twitter.com', 'https://reddit.com', 'https://facebook.com', 'https://youtube.com'];
+
   recognition.onresult = function(event) {
     var speechResult = event.results[0][0].transcript;
     resultPara.textContent = 'Speech received: ' + speechResult + '.';
     console.log('Confidence: ' + event.results[0][0].confidence);
+    if (speechResult.toLowerCase().indexOf("open") != -1) {
+        var siteIndex = sitesList.indexOf(speechResult.toLowerCase().slice(5))
+        if (siteIndex >= 0) {
+            var win = window.open(sitesURL[siteIndex], '_blank');
+            if (win) {
+                //Browser has allowed it to be opened
+                win.focus();
+            } else {
+                //Browser has blocked it
+                alert('Please allow popups for this website');
+            }
+        }
+    }
   }
 
   recognition.onspeechend = function() {
