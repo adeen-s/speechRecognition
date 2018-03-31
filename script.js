@@ -1,56 +1,66 @@
+// Get instance of speechRecognition
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
-var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
 var resultPara = document.querySelector('.result');
 var diagnosticPara = document.querySelector('.output');
-
 var testBtn = document.querySelector('button');
 
+function searchTerm(speech) {
+    /* TODO search the web for the given input
+     */
+}
+
+function openSite(speech) {
+    /* TODO implement the functionality to open
+     * a website based on user input.
+     * Pass the speech to searchTerm if the website is not in list
+     * or is not in the form of <websitename>.<domainname>
+     */
+}
+
+function greeting(speech) {
+    /* TODO give appropriate responses for varioius greetings
+     */
+}
+
+function parseSpeech(speech) {
+    /* TODO identify the nature of input,
+     * i.e, whether the input is supposed to be a question,
+     * a command to open a website,
+     * a greeting,
+     * or a search term
+     */
+}
+
 function testSpeech() {
-  testBtn.disabled = true;
-  testBtn.textContent = 'Listening';
+    testBtn.disabled = true;
+    testBtn.textContent = 'Listening';
 
-  var recognition = new SpeechRecognition();
-  recognition.lang = 'en-US';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
+    var recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
 
-  recognition.start();
+    recognition.start();
 
-  var sitesList = ['twitter', 'reddit', 'facebook', 'youtube'];
-  var sitesURL = ['https://twitter.com', 'https://reddit.com', 'https://facebook.com', 'https://youtube.com'];
-
-  recognition.onresult = function(event) {
-    var speechResult = event.results[0][0].transcript;
-    resultPara.textContent = 'Speech received: ' + speechResult + '.';
-    console.log('Confidence: ' + event.results[0][0].confidence);
-    if (speechResult.toLowerCase().indexOf("open") != -1) {
-        var siteIndex = sitesList.indexOf(speechResult.toLowerCase().slice(5))
-        if (siteIndex >= 0) {
-            var win = window.open(sitesURL[siteIndex], '_blank');
-            if (win) {
-                //Browser has allowed it to be opened
-                win.focus();
-            } else {
-                //Browser has blocked it
-                alert('Please allow popups for this website');
-            }
-        }
+    recognition.onresult = function(event) {
+        var speechResult = event.results[0][0].transcript;
+        resultPara.textContent = 'Speech Received: ' + speechResult + '.';
+        console.log('Confidence: ' + event.results[0][0].confidence);
+        parseSpeech(speechResult.toLowerCase());
     }
-  }
 
-  recognition.onspeechend = function() {
-    recognition.stop();
-    testBtn.disabled = false;
-    testBtn.textContent = 'Start Listening';
-  }
+    recognition.onspeechend = function() {
+        recognition.stop();
+        testBtn.disabled = false;
+        testBtn.textContent = 'Start Listening';
+    }
 
-  recognition.onerror = function(event) {
-    testBtn.disabled = false;
-    testBtn.textContent = 'Start Listening';
-    diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
-  }
+    recognition.onerror = function(event) {
+        testBtn.disabled = false;
+        testBtn.textContent = 'Start Listening';
+        diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
+    }
 
 }
 
