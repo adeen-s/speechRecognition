@@ -6,8 +6,14 @@ var diagnosticPara = document.querySelector('.output');
 var testBtn = document.querySelector('button');
 
 function searchTerm(speech) {
-    /* TODO search the web for the given input
-     */
+    var win = window.open("https://www.google.co.in/search?q=" + speech, '_blank');
+    if (win) {
+        //Browser has allowed it to be opened
+        win.focus();
+    } else {
+        //Browser has blocked it
+        alert('Please allow popups for this website');
+    }
 }
 
 function openSite(speech) {
@@ -24,11 +30,6 @@ function openSite(speech) {
             }
         }
     }
-    /* TODO implement the functionality to open
-     * a website based on user input.
-     * Pass the speech to searchTerm if the website is not in list
-     * or is not in the form of <websitename>.<domainname>
-     */
 }
 
 function greeting(speech) {
