@@ -11,6 +11,19 @@ function searchTerm(speech) {
 }
 
 function openSite(speech) {
+    var words = speech.split(" ");
+    for (var i = 0; i < words.length; i++) {
+        if (words[i].indexOf(".") != -1) {
+            var win = window.open("https://" + words[i], '_blank');
+            if (win) {
+                //Browser has allowed it to be opened
+                win.focus();
+            } else {
+                //Browser has blocked it
+                alert('Please allow popups for this website');
+            }
+        }
+    }
     /* TODO implement the functionality to open
      * a website based on user input.
      * Pass the speech to searchTerm if the website is not in list
@@ -33,7 +46,7 @@ function parseSpeech(speech) {
         }
     }
     // Check if speech is a command to open website
-    var openKeywords = ['open', 'navigate', 'browse', 'take', 'show'];
+    var openKeywords = ['open', 'navigate', 'browse', 'take'];
     for (var i = 0; i < openKeywords.length; i++) {
         if(speech.indexOf(openKeywords[i]) != -1) {
             openSite(speech);
