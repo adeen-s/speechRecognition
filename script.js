@@ -24,12 +24,36 @@ function greeting(speech) {
 }
 
 function parseSpeech(speech) {
-    /* TODO identify the nature of input,
-     * i.e, whether the input is supposed to be a question,
-     * a command to open a website,
-     * a greeting,
-     * or a search term
-     */
+    // Check if speech is a question
+    var questionKeywords = ['who', 'what', 'when', 'where', 'why', 'how', 'is', 'can', 'does', 'do'];
+    for (var i = 0; i < questionKeywords.length; i++) {
+        if(speech.indexOf(questionKeywords[i]) != -1) {
+            searchTerm(speech);
+            return;
+        }
+    }
+    // Check if speech is a command to open website
+    var openKeywords = ['open', 'navigate', 'browse', 'take', 'show'];
+    for (var i = 0; i < openKeywords.length; i++) {
+        if(speech.indexOf(openKeywords[i]) != -1) {
+            openSite(speech);
+            return;
+        }
+    }
+    // Check if speech is a greeting
+    var greetKeywords = ['hi', 'hello', 'hey'];
+    for (var i = 0; i < greetKeywords.length; i++) {
+        if(speech.indexOf(greetKeywords[i]) != -1) {
+            greeting(speech);
+            return;
+        }
+    }
+    // Star Wars Easter Egg
+    if(speech === "hello there") {
+        diagnosticPara.textContent = 'General Kenobi, You are a bold one!';
+    }
+    // If none of the above conditions are met
+    diagnosticPara.textContent = 'Sorry, I can not understand that, yet.';
 }
 
 function testSpeech() {
