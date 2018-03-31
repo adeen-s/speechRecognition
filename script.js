@@ -40,6 +40,11 @@ function parseSpeech(speech) {
             return;
         }
     }
+    // Star Wars Easter Egg
+    if(speech === "hello there") {
+        diagnosticPara.textContent = 'General Kenobi, You are a bold one!';
+        return;
+    }
     // Check if speech is a greeting
     var greetKeywords = ['hi', 'hello', 'hey'];
     for (var i = 0; i < greetKeywords.length; i++) {
@@ -47,10 +52,6 @@ function parseSpeech(speech) {
             greeting(speech);
             return;
         }
-    }
-    // Star Wars Easter Egg
-    if(speech === "hello there") {
-        diagnosticPara.textContent = 'General Kenobi, You are a bold one!';
     }
     // If none of the above conditions are met
     diagnosticPara.textContent = 'Sorry, I can not understand that, yet.';
