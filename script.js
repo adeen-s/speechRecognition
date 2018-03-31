@@ -28,18 +28,19 @@ function openSite(speech) {
                 //Browser has blocked it
                 alert('Please allow popups for this website');
             }
+            return;
         }
     }
+    searchTerm(speech);
 }
 
 function greeting(speech) {
-    /* TODO give appropriate responses for varioius greetings
-     */
+    diagnosticPara.textContent = 'Hello! What can I do for you ?';
 }
 
 function parseSpeech(speech) {
     // Check if speech is a question
-    var questionKeywords = ['who', 'what', 'when', 'where', 'why', 'how', 'is', 'can', 'does', 'do'];
+    var questionKeywords = ['who', 'what', 'when', 'where', 'why', 'how', 'is', 'can', 'does', 'do', 'search', 'find', 'look'];
     for (var i = 0; i < questionKeywords.length; i++) {
         if(speech.indexOf(questionKeywords[i]) != -1) {
             searchTerm(speech);
