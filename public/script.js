@@ -4,8 +4,6 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var resultPara = document.querySelector('.result');
 var diagnosticPara = document.querySelector('.output');
 var testBtn = document.querySelector('button');
-var loader = document.getElementById('loader');
-loader.style.visibility = 'hidden';
 
 function searchTerm(speech) {
     var win = window.open("https://www.google.co.in/search?q=" + speech, '_blank');
@@ -76,7 +74,6 @@ function parseSpeech(speech) {
 
 function testSpeech() {
     testBtn.disabled = true;
-    loader.style.visibility = 'visible';
     testBtn.textContent = 'Listening';
 
     var recognition = new SpeechRecognition();
@@ -94,7 +91,6 @@ function testSpeech() {
     }
 
     recognition.onspeechend = function() {
-        loader.style.visibility = 'hidden';
         recognition.stop();
         testBtn.disabled = false;
         testBtn.textContent = 'Start Listening';

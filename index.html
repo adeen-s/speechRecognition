@@ -1,24 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/main.css">
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Speech Recognition</title>
-  </head>
+</head>
 
-  <body>
-    <h1>Speech Recognition</h1>
-    <p>Click on this button, You can ask any question, Ask to open a website or search for a query</p>
+<body class="blue">
+    <h1 class="center">Speech Recognition</h1>
+    <main>
+        <div class="container">
+            <p>Click on this button, you can ask any question, ask to open a website or search for a query</p>
 
-    <button>Start Listening</button>
+            <button class="btn btn-large">Start Listening <i class="material-icons">hearing</i></button>
 
-    <div>
-        <p class="result">Input :</p>
-        <p class="output"></p>
-    </div>
+            <br>
+            <br>
+
+            <div class="preloader-wrapper active valign-wrapper center" id="loader">
+                <div class="spinner-layer spinner-red-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p class="result">Input :</p>
+                <p class="output"></p>
+            </div>
+        </div>
+    </main>
+    <footer class="page-footer blue darken-4">
+        <div class="container">
+            <p class="right-align">Made by Adeen Shukla</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
-  </body>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
 </html>
