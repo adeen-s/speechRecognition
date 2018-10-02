@@ -37,7 +37,7 @@ function openSite(speech) {
 }
 
 function contactMe() {
-	window.location.href = "mailto:adeen@adeen.me" ;
+	window.open("mailto:adeen@adeen.me");
 }
 
 function greeting(speech) {
