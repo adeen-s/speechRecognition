@@ -36,6 +36,10 @@ function openSite(speech) {
     searchTerm(speech);
 }
 
+function contactMe() {
+	window.open("mailto:adeen@adeen.me");
+}
+
 function greeting(speech) {
     diagnosticPara.textContent = 'Hello! What can I do for you ?';
 }
@@ -69,6 +73,14 @@ function parseSpeech(speech) {
             greeting(speech);
             return;
         }
+    }
+    //Check if speech is a contact request
+    var contactKeywords = ['contact' , 'connect' , 'email' , 'help' , 'feedback'];
+    for (var i=0 ; i<contactKeywords.length; ++i){
+    	if(speech.indexOf(contactKeywords[i]) != -1){
+    		contactMe();
+    		return ;
+    	}
     }
     // If none of the above conditions are met
     diagnosticPara.textContent = 'Sorry, I can not understand that, yet.';
