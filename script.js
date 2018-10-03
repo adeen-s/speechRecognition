@@ -1,5 +1,7 @@
 // Get instance of speechRecognition
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var synth = window.speechSynthesis;
+
 
 var resultPara = document.querySelector('.result');
 var diagnosticPara = document.querySelector('.output');
@@ -9,6 +11,7 @@ loader.style.visibility = 'hidden';
 
 function searchTerm(speech) {
     var win = window.open("https://www.google.co.in/search?q=" + speech, '_blank');
+    synth.speak(new SpeechSynthesisUtterance("Searching Google for " + speech))
     if (win) {
         //Browser has allowed it to be opened
         win.focus();
@@ -23,11 +26,13 @@ function openSite(speech) {
     for (var i = 0; i < words.length; i++) {
         if (words[i].indexOf(".") != -1) {
             var win = window.open("https://" + words[i], '_blank');
+            synth.speak(new SpeechSynthesisUtterance("Now opening " + words[i]))
             if (win) {
                 //Browser has allowed it to be opened
                 win.focus();
             } else {
                 //Browser has blocked it
+                synth.speak(new SpeechSynthesisUtterance("Please allow popups"))
                 alert('Please allow popups for this website');
             }
             return;
@@ -37,11 +42,13 @@ function openSite(speech) {
 }
 
 function contactMe() {
+    synth.speak(new SpeechSynthesisUtterance("Sending an email to Adeen"))
 	window.open("mailto:adeen@adeen.me");
 }
 
 function greeting(speech) {
     diagnosticPara.textContent = 'Hello! What can I do for you ?';
+    synth.speak(new SpeechSynthesisUtterance("Hello! What can I do for you ?"))
 }
 
 function parseSpeech(speech) {
@@ -84,6 +91,7 @@ function parseSpeech(speech) {
     }
     // If none of the above conditions are met
     diagnosticPara.textContent = 'Sorry, I can not understand that, yet.';
+    synth.speak(new SpeechSynthesisUtterance("Sorry! I do not understand that yet"))
 }
 
 function testSpeech() {
