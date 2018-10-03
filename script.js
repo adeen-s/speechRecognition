@@ -43,7 +43,14 @@ function openSite(speech) {
 
 function contactMe() {
     synth.speak(new SpeechSynthesisUtterance("Sending an email to Adeen"))
+    diagnosticPara.textContent = 'Sending an email to Adeen';
 	window.open("mailto:adeen@adeen.me");
+}
+
+function goodBye(){
+    synth.speak(new SpeechSynthesisUtterance("Have a nice day"))
+    diagnosticPara.textContent = 'Have a nice day' ;
+    window.location.href = "about:blank" ;
 }
 
 function greeting(speech) {
@@ -88,6 +95,14 @@ function parseSpeech(speech) {
     		contactMe();
     		return ;
     	}
+    }
+    //Check if user want to leave
+    var leaveKeywords = ['good bye' , 'bye' , 'close this tab' , 'dismiss'];
+    for (var i=0 ; i<leaveKeywords.length; ++i){
+        if(speech.indexOf(leaveKeywords[i]) != -1){
+            goodBye();
+            return ;
+        }
     }
     // If none of the above conditions are met
     diagnosticPara.textContent = 'Sorry, I can not understand that, yet.';
