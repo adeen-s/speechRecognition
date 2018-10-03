@@ -50,7 +50,7 @@ function contactMe() {
 function goodBye(){
     synth.speak(new SpeechSynthesisUtterance("Have a nice day"))
     diagnosticPara.textContent = 'Have a nice day' ;
-    close();
+    window.location.href = "about:blank" ;
 }
 
 function greeting(speech) {
