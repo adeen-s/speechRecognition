@@ -75,9 +75,9 @@ function parseSpeech(speech) {
         }
     }
     //Check if speech is a contact request
-    var contactKeywords = ['contact' , 'connect' , 'email' , 'help' , 'suggest' , 'suggestion'];
+    var contactKeywords = ['contact' , 'connect' , 'email' , 'help' , 'feedback'];
     for (var i=0 ; i<contactKeywords.length; ++i){
-    	if(speech.indexOf(greetKeywords[i]) != -1){
+    	if(speech.indexOf(contactKeywords[i]) != -1){
     		contactMe();
     		return ;
     	}
