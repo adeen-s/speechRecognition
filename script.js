@@ -47,6 +47,26 @@ function contactMe() {
 	window.open("mailto:adeen@adeen.me");
 }
 
+function setTemp(speech){
+    var city = "";
+    var words = speech.split(" ");
+    for (var i=0 ; i<words.length ; ++i){
+        if(words[i] == "in") {
+            for (var j=i+1 ; j<words.length ; ++j){
+                city = city + " " + words[j] ;
+            }
+        }
+    }
+    var printTxt = ""
+    var searchtext = "select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "') and u='c'"
+    $.getJSON("https://query.yahooapis.com/v1/public/yql?q=" + searchtext + "&format=json").success(    function(data){
+      console.log(data);
+      printTxt = "Temperature in " + city + " is " + data.query.results.channel.item.condition.temp + "°C" ;
+      synth.speak(new SpeechSynthesisUtterance(printTxt))
+      diagnosticPara.textContent = printTxt;
+      });
+}
+
 function goodBye(){
     synth.speak(new SpeechSynthesisUtterance("Have a nice day"))
     diagnosticPara.textContent = 'Have a nice day' ;
@@ -58,7 +78,18 @@ function greeting(speech) {
     synth.speak(new SpeechSynthesisUtterance("Hello! What can I do for you ?"))
 }
 
+
 function parseSpeech(speech) {
+    
+    //Check if speech is related to weather 
+    var tempKeyword = ['temperature' , 'weather'] ;
+    for (var i=0 ; i<tempKeyword.length ; ++i){
+        if(speech.indexOf(tempKeyword[i]) != -1){
+              setTemp(speech);
+              return ;
+         }
+    }
+
     // Check if speech is a question
     var questionKeywords = ['who', 'what', 'when', 'where', 'why', 'how', 'is', 'can', 'does', 'do', 'search', 'find', 'look'];
     for (var i = 0; i < questionKeywords.length; i++) {
@@ -80,6 +111,7 @@ function parseSpeech(speech) {
         diagnosticPara.textContent = 'General Kenobi, You are a bold one!';
         return;
     }
+
     // Check if speech is a greeting
     var greetKeywords = ['hi', 'hello', 'hey'];
     for (var i = 0; i < greetKeywords.length; i++) {
@@ -104,6 +136,7 @@ function parseSpeech(speech) {
             return ;
         }
     }
+
     // If none of the above conditions are met
     diagnosticPara.textContent = 'Sorry, I can not understand that, yet.';
     synth.speak(new SpeechSynthesisUtterance("Sorry! I do not understand that yet"))
