@@ -41,6 +41,8 @@ function openSite(speech) {
     searchTerm(speech);
 }
 
+
+//Edit contactMe() function according to yourself. 
 function contactMe() {
     synth.speak(new SpeechSynthesisUtterance("Sending an email to Adeen"))
     diagnosticPara.textContent = 'Sending an email to Adeen';
